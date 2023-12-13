@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float speed;
+    public float jumpForce;
+    public Rigidbody2D rb;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
+        if (Input.GetKey(KeyCode.D))
+        {
+            rb.velocity = new Vector2(x: speed, rb.velocity.y);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            rb.velocity = new Vector2(x: -speed, rb.velocity.y);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            rb.AddForce((Vector2)(transform.up * jumpForce), ForceMode2D.Impulse);
+        }
     }
 }
