@@ -1,27 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float speed;
     public float jumpForce;
     public Rigidbody2D rb;
 
     private void Update()
     {
-        
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.velocity = new Vector2(x: speed, rb.velocity.y);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            rb.velocity = new Vector2(x: -speed, rb.velocity.y);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce((Vector2)(transform.up * jumpForce), ForceMode2D.Impulse);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("PipePart"))
+        {
+            GameManager.instance.Lose();
         }
     }
 }
